@@ -4,7 +4,10 @@ export default function Navbar() {
       <ul>
         <li>About</li>
         <li>Contact</li>
-        <li>Login</li>
+        <select name="" id="">
+          <option value="">Login</option>
+          Logout
+        </select>
       </ul>
     </div>
   );
