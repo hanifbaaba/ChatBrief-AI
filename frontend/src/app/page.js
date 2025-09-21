@@ -1,11 +1,9 @@
-import Navbar from "./Components/Navbar/page";
-import Notes from "./Components/Page";
+import Task from "./Components/Task/page";
 
 export default function Page() {
   return (
     <>
-      {/* <Notes /> */}
-      <Navbar />
+      <Task />
     </>
   );
 }
