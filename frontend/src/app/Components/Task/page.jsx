@@ -2,25 +2,47 @@
 import { useState, useEffect } from "react";
 
 export default function Task() {
-  const [task, setTask] = useState("");
+  const [task, setTask] = useState([]);
+  const [taskInput, setTaskInput] = useState("");
+  const [descriptionInput, setDescriptionInput] = useState("");
 
   useEffect(() => {
-    fetch("https://chatbrief-ai.onrender.com/tasks", {
-      method: "POST",
+    fetch("https://chatbrief-ai.onrender.com/tasks/", {
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(),
     })
       .then((response) => response.json())
-      .then((data) => console.log(data))
+      .then((data) => setTask(data))
       .catch((error) => console.error("Error:", error));
-    setTask(data);
   }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    fetch("https://chatbrief-ai.onrender.com/tasks/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        task: taskInput,
+        description: descriptionInput,
+      }),
+    })
+      .then(() => {
+        return fetch("https://chatbrief-ai.onrender.com/tasks/");
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        setTask(data);
+        setTaskInput("");
+        setDescriptionInput("");
+      })
+      .catch((error) => console.error("Error:", error));
   };
+
   return (
     <div>
       <form action="" onSubmit={handleSubmit}>
@@ -28,20 +50,24 @@ export default function Task() {
         <input
           type="text"
           placeholder="Enter task"
-          value={task}
-          onChange={handleSubmit}
+          value={taskInput}
+          onChange={(e) => setTaskInput(e.target.value)}
           className="form-input block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
         />
         <input
           type="text"
+          value={descriptionInput}
+          onChange={(e) => setDescriptionInput(e.target.value)}
           placeholder="Description"
           className=" form-input block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
         />
         <button>Submit task</button>
       </form>
-      {/* {task.map((task) => {
-        <li>{task}</li>;
-      })} */}
+      <ul>
+        {task.map((t) => (
+          <li key={t.id}>{t.task}</li>
+        ))}
+      </ul>
     </div>
   );
 }

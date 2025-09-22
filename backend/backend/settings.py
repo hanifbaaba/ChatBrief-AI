@@ -27,8 +27,7 @@ SECRET_KEY = 'django-insecure-!^3l9v_0j4ikkkbxrcjil^=wu^$-p&pn#3f_$*swy7@j9o9msy
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['http://localhost:3000/']
-
+ALLOWED_HOSTS = ['chatbrief-ai.onrender.com', 'chat-brief-ai.vercel.app', 'localhost']
 
 # Application definition
 
@@ -55,8 +54,12 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-CORS_ALLOWED_ORIGINS =[]
-CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOWED_ORIGINS = [
+  "https://chat-brief-ai.vercel.app",
+  "http://localhost:3000",
+]
+
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 ROOT_URLCONF = 'backend.urls'
 
