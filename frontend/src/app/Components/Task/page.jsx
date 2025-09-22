@@ -5,7 +5,7 @@ export default function Task() {
   const [task, setTask] = useState("");
 
   useEffect(() => {
-    fetch("api link", {
+    fetch("https://chatbrief-ai.onrender.com/tasks", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
