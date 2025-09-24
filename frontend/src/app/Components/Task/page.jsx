@@ -5,6 +5,8 @@ export default function Task() {
   const [task, setTask] = useState([]);
   const [taskInput, setTaskInput] = useState("");
   const [descriptionInput, setDescriptionInput] = useState("");
+  const [editTaskInput, setEditTaskInput] = useState("");
+  const [deleteTask, setDeleteTask] = useState("");
 
   useEffect(() => {
     fetch("https://chatbrief-ai.onrender.com/tasks/", {
@@ -42,7 +44,25 @@ export default function Task() {
       })
       .catch((error) => console.error("Error:", error));
   };
-
+  const editTask = () => {
+    fetch("https://chatbrief-ai.onrender.com/tasks/", {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+      },
+    }).then((data) => {
+      setEditTaskInput(data);
+    });
+  };
+  const handleDelete = (id) => {
+    fetch(`https://chatbrief-ai.onrender.com/tasks/${id}/`, {
+      method: "DELETE",
+    })
+      .then(() => fetch("https://chatbrief-ai.onrender.com/tasks/"))
+      .then((res) => res.json())
+      .then((data) => setTask(data))
+      .catch((error) => console.error("Error:", Error));
+  };
   return (
     <div>
       <form action="" onSubmit={handleSubmit}>
@@ -62,10 +82,14 @@ export default function Task() {
           className=" form-input block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
         />
         <button>Submit task</button>
+        <button>Edit task</button>
+        <button>Delete task</button>
       </form>
       <ul>
         {task.map((t) => (
-          <li key={t.id}>{t.task}</li>
+          <li key={t.id}>
+            {t.task}-{t.description}
+          </li>
         ))}
       </ul>
     </div>
