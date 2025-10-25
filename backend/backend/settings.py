@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-!^3l9v_0j4ikkkbxrcjil^=wu^$-p&pn#3f_$*swy7@j9o9msy
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['chatbrief-ai.onrender.com', 'chat-brief-ai.vercel.app', 'localhost']
+ALLOWED_HOSTS = ['https://chat-brief-ai.vercel.app', 'http://localhost:3000/']
 
 # Application definition
 
