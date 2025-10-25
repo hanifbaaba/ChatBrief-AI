@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import Task, UserLogin, UserRegister
 from .serializers import TaskSerializer, UserRegisterSerializer, UserLoginSerializer
 from rest_framework import viewsets, generics
-from rest_framework.permissions import  AllowAny
+from rest_framework.permissions import  AllowAny, IsAuthenticated
 
 class TaskView(viewsets.ModelViewSet):
     serializer_class = TaskSerializer
@@ -16,4 +16,4 @@ class UserRegisterView(generics.CreateAPIView):
 class UserLoginView(generics.CreateAPIView):
     queryset = UserLogin.objects.all()
     serializer_class = UserLoginSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]

@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 export default function TaskHandler() {
+  const [task, setTask] = useState("");
   const [tasks, setTasks] = useState([]);
   const [description, setDescription] = useState("");
   const [message, setMessage] = useState("");
@@ -8,25 +9,46 @@ export default function TaskHandler() {
   useEffect(() => {
     fetch("")
       .then((res) => res.json())
-      .then((json) => {
-        setTasks(json);
-        setDescription(true);
-      });
+      .then((data) => setTasks(data))
+      .catch((Error) => console.error("Erro", Error));
   }, []);
+
+  const submitTask = (e) => {
+    e.preventDefault();
+
+    const newTask = { task, description };
+
+    fetch("", {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(newTask),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setTasks([...tasks, data]);
+        setTask("");
+        setDescription("");
+        setMessage("Task added successfully!");
+      })
+      .catch((err) => {
+        console.error(err);
+        setMessage("Failed to add task!");
+      });
+  };
 
   return (
     <div className="tasks-container">
       <h1>ChatBrief AI</h1>
       <h3>Your favourite AI task summariser!</h3>
 
-      <form action="" className="form">
+      <form action="" className="form" onSubmit={submitTask}>
         <label htmlFor="">Tasks</label>
         <div className="task">
           <input
             type="text"
             placeholder="Add Task"
-            value={tasks}
-            onChange={(e) => setTasks(e.target.value)}
+            value={task}
+            onChange={(e) => setTask(e.target.value)}
           />
 
           <input
@@ -39,13 +61,16 @@ export default function TaskHandler() {
           <button type="submit">Submit Task</button>
         </div>
       </form>
-      {/* <ul>
-        {tasks.map((task) => (
-          <li key={task.id}>
-            {task.task} - {task.description}
+      {message && <p>{message}</p>}
+      <ul>
+        {tasks.map((t) => (
+          <li key={t.id}>
+            <strong>
+              {t.task}-{t.description}
+            </strong>
           </li>
         ))}
-      </ul> */}
+      </ul>
     </div>
   );
 }

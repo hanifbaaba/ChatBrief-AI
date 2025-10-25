@@ -1,6 +1,6 @@
 // export default function RegisterPage() {
 //   const registerUser = () => {
-//     fetch("https://chatbrief-ai.onrender.com/api/register/", {
+//     fetch("", {
 //       method: "POST",
 //     })
 //       .then((res) => res.json())
@@ -12,11 +12,16 @@
 //     <div>
 //       <form action="" onSubmit={registerUser}>
 //         <input type="name" name="name" placeholder="Enter your full name" />
-//         {/* <input type="email" name="email" placeholder="Email" required /> */}
+//         <input
+//           type="email"
+//           name="email"
+//           placeholder="Enter your email address"
+//           required
+//         />
 //         <input
 //           type="password"
 //           name="password"
-//           placeholder="Password"
+//           placeholder="Type in your Password"
 //           required
 //         />
 //         <button type="submit">Register</button>

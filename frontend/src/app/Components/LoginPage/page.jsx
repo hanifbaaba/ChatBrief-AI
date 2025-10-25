@@ -1,6 +1,6 @@
 // export default function LoginPage() {
 //   const userLogin = () => {
-//     fetch("https://chatbrief-ai.onrender.com/api/token/", {
+//     fetch("", {
 //       method: "POST",
 //       headers: {
 //         "Content-Type": "application/json",
@@ -14,11 +14,16 @@
 //   return (
 //     <div>
 //       <form action="" onSubmit={userLogin}>
-//         <input type="email" name="email" placeholder="Email" required />
+//         <input
+//           type="email"
+//           name="email"
+//           placeholder="Enter your email"
+//           required
+//         />
 //         <input
 //           type="password"
 //           name="password"
-//           placeholder="Password"
+//           placeholder="Enter your password"
 //           required
 //         />
 //         <button type="submit">Login</button>
