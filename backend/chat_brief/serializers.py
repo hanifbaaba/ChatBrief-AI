@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Task, User
+from .models import Task, UserLogin, UserRegister
 from django.contrib.auth.hashers import make_password
 
 class TaskSerializer(serializers.ModelSerializer):
@@ -9,7 +9,7 @@ class TaskSerializer(serializers.ModelSerializer):
         
 class UserRegisterSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = UserRegister
         fields = ['id','name', 'email', 'password']
         write_only_fields = ('password',)
         read_only_fields = ('id',)
@@ -21,5 +21,5 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 class UserLoginSerializer(serializers.ModelSerializer):
     class Meta:
         fields = ['email', 'password']
-        model = User
+        model = UserLogin
         write_only_fields = ('password')
