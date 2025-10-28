@@ -7,10 +7,10 @@ export default function TaskHandler() {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    fetch("")
+    fetch("https://chatbrief-ai.onrender.com/")
       .then((res) => res.json())
       .then((data) => setTasks(data))
-      .catch((Error) => console.error("Erro", Error));
+      .catch((Error) => console.error("Error", Error));
   }, []);
 
   const submitTask = (e) => {
@@ -18,7 +18,7 @@ export default function TaskHandler() {
 
     const newTask = { task, description };
 
-    fetch("", {
+    fetch("https://chatbrief-ai.onrender.com/tasks/", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify(newTask),
